@@ -957,6 +957,11 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/google-signin@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@react-native-community/google-signin/-/google-signin-3.0.4.tgz#0a28ff735162e29764b0044b282752793c94960f"
+  integrity sha512-76FhtnQllErTLFVKTLqmnoHvDM8nK1IPl4p0enEW6F0ScsfA8gMx9o8KMPAUr7BZpcSQpIsFc+EXOh+LldyOWg==
+
 "@react-native-firebase/app-types@6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.2.0.tgz#4d3c0e7fa4e4f00061c52b1a32d76e85e5db9f2c"
@@ -5349,6 +5354,20 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-native-animatable@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
+  integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-camera@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.15.1.tgz#8e4eb67cb6687b5250f849b348f0d19a01649105"
+  integrity sha512-xj1sljzFq8HVX22d2T945dsJdK/KFb3jaXUHEYGwMp/zz0ypIs3mY3NezdpyYpS1ioKKzdIcLrxz2VKzDCXaCg==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-native-drawer@2.5.1:
   version "2.5.1"

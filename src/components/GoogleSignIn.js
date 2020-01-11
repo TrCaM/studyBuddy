@@ -20,7 +20,7 @@ export default class GoogleSignIn extends React.Component {
   componentDidMount() {
     GoogleSignin.configure({
         scopes: ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/contacts.readonly'],
-        webClientId: '887648564013-g4tq04ur65s209eab8g2ang3ijb1ktal.apps.googleusercontent.com', // required
+        webClientId: '1013144747344-j41mclblomr0b3j1huca5jm7a97s4v1g.apps.googleusercontent.com', // required
         offlineAccess: true,
     });
   }
@@ -35,6 +35,7 @@ export default class GoogleSignIn extends React.Component {
       const userData = await firebase.auth().signInWithCredential(credential);
       this.onSuccess(userData);
     } catch (error) {
+      console.log(error)
       this.onFailed(error);
     }
   };
