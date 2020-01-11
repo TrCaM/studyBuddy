@@ -5,7 +5,7 @@ import {
   StyleSheet } from 'react-native';
 
 import {Text, Button, Item, Input, Form, Toast} from 'native-base';
-// import GoogleSignIn from '../components/GoogleSignIn';
+import GoogleSignIn from '../components/GoogleSignIn';
 
 import auth from '@react-native-firebase/auth';
 
@@ -102,7 +102,7 @@ const LoginScreen = props => {
         <Button style={styles.button} dark onPress={register}>
           <Text>Sign up</Text>
         </Button>
-        {/* <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} /> */}
+        <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
       </Form>
     </View>
   );
