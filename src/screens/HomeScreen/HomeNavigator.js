@@ -3,12 +3,14 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import StartScreen from './StartScreen';
 import TimerScreen from './TimerScreen';
 import CaptureScreen from './CaptureScreen';
+import AccountScreen from './AccountScreen';
 
 const TabNavigator = createBottomTabNavigator(
   {
     Start: StartScreen,
     Timer: TimerScreen,
     Camera: CaptureScreen,
+    Account: AccountScreen
   },
   {
     tabBarOptions: {
