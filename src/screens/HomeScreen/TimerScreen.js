@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Text } from 'native-base';
+import Timer from '../../../src/components/Timer';
 
 const TimerScreen = props => {
   return (
     <Container>
-      <Text>Timer screen here!</Text>
+      <Timer/>
     </Container>
   );
 };
