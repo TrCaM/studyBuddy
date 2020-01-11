@@ -12,36 +12,39 @@ export default class Timer extends Component {
     super(props);
 
     //set time length here
-    this.restInterval = 1
-    this.studyInterval = 3
-    this.roundNum = 1
+    this.settings = props.settings
+    // this.restInterval = props.setting
+    // this.studyInterval = 3
+    // this.roundNum = 1
+    const { restInterval, studyInterval, periods } = this.settings;
 
     this.state = {
       eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: this.studyInterval}),
       hours: 0,
       mins: 0,
-      secs: this.studyInterval,
+      secs: studyInterval,
       status: 'Studying',
-      roundLeft: this.roundNum,
+      roundLeft: periods,
     }
   };
 
   statusChanging() {
+    const { restInterval, studyInterval, periods } = this.settings;
     if (this.state.roundLeft == 0 && this.state.status == 'Resting'){
       //  Alert.alert("Congratulations!!! You've finished your study interval!!")
     } else {
       if (this.state.status == 'Studying') {
         this.setState({
           status: 'Resting',
-          secs: this.restInterval,
-          eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: this.restInterval }),
+          secs: restInterval,
+          eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: restInterval }),
         })
         this.updateTimer()
       } else if (this.state.status == 'Resting') {
         this.setState({
           status: 'Studying',
-          secs: this.studyInterval,
-          eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: this.studyInterval }),
+          secs: studyInterval,
+          eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: studyInterval }),
           roundLeft: this.state.roundLeft - 1
         })
         this.updateTimer()
@@ -119,27 +122,6 @@ export default class Timer extends Component {
           </Text>
         </View>
 
-        <Form>
-          <Item stackedLabel>
-            <Label>Studying Time (mins):</Label>
-            <Input onChangeText={studyInterval => this.setState({studyInterval})}/>
-          </Item>
-
-          <Item stackedLabel>
-            <Label>Resting Time (mins):</Label>
-            <Input onChangeText={restInterval => this.setState({restInterval})}/>
-          </Item>
-
-          <Item stackedLabel>
-            <Label>Number of Intervals:</Label>
-            <Input onChangeText={roundNum => this.setState({roundNum})}/>
-          </Item>
-        </Form>
-        <Button large style={styles.buttonStyle}>
-          <Text style={styles.buttonText}>
-            ENTER
-          </Text>
-        </Button>
       </Container>
     );
   };
