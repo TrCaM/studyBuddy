@@ -169,6 +169,11 @@ export default class Timer extends Component {
             style={this.state.buttonPauseStyle}
             onPress={() => {
               this.buttonPauseStyleChange();
+              if (this.state.buttonPauseTitle == "Pause") {
+                this.props.onPause();
+              } else if (this.state.buttonPauseTitle == "Resume") {
+                this.props.onResume();
+              }
             }}>
             <Text> </Text>
             <Icon name={this.state.buttonPauseIcon} color="white" size={30} />

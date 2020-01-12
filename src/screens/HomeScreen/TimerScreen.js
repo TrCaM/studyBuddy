@@ -10,6 +10,8 @@ const TimerScreen = props => {
   };
   return (
     <Timer
+      onPause = {props.onPause}
+      onResume = {props.onResume}
       settings={settings}
       gotoResult={() => props.navigation.navigate('Result')}
     />

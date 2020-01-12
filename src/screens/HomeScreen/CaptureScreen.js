@@ -18,6 +18,7 @@ const CaptureScreen = props => {
   const [detected, setDetected] = React.useState(false);
   const [frameData, setFrame] = React.useState({});
   const [lowLine, setLowLine] = React.useState(0);
+  const [isStart, setStart] = React.useState(false);
   const [sideLineLeft, setSideLineLeft] = React.useState(0);
   const [sideLineRight, setSideLineRight] = React.useState(0);
   const [lockFrame, setLockFrame] = React.useState(false);
@@ -117,8 +118,8 @@ const CaptureScreen = props => {
 
   return (
     <View style={styles.container}>
-      <Overlay isVisible={lockFrame} overlayBackgroundColor="transparent" fullScreen>
-        <TimerScreen navigation={props.navigation}/>
+      <Overlay isVisible={isStart} overlayBackgroundColor="transparent" fullScreen>
+        <TimerScreen onPause={startTracking} onResume={startTracking} navigation={props.navigation}/>
       </Overlay>
       <RNCamera
         style={styles.camera}
@@ -136,7 +137,9 @@ const CaptureScreen = props => {
         <Text style={{color: "red"}}>{badPosture? "Bad Posture!" : "Good Posture!"}</Text>
         { detected ? frame : null}
       </RNCamera>
-      <Button title="start" onPress={startTracking}/>
+      <Button 
+        title="start" 
+        onPress={() => { startTracking(); setStart(true);}}/>
     </View>
   );
 };
