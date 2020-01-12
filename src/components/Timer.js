@@ -65,7 +65,8 @@ export default class Timer extends Component {
   }
   
   calculateQuality(result) {
-    const focusDuration = result.stopTime.getTime() - result.startTime.getTime() - result.badPostureTime;
+    console.log(result.badPostureTime);
+    const focusDuration = result.stopTime.getTime() - result.startTime.getTime() - (result.badPostureTime || 5000);
     const expectedDuration = 60 * 1000 * (result.studyInterval * result.periods + result.restInterval * (result.periods -1));
     console.log("focus: " + focusDuration);
     console.log("expected: " + expectedDuration);

@@ -100,9 +100,9 @@ export default class ResultScreen extends Component {
                         fontSize: 35,
                         fontWeight: 'bold',
                         paddingVertical: 55,
-                        paddingHorizontal: 23,
+                        paddingHorizontal: 43,
                       }}>
-                      {this.state.quality.toFixed(2)}%
+                      {Math.round(this.state.quality)}%
                     </Text>
                   </View>
                 </View>
