@@ -2,7 +2,7 @@ import React from 'react';
 // import { Container, Text } from 'native-base';
 import { RNCamera } from 'react-native-camera';
 import { Text, View, StyleSheet, Button, Vibration } from 'react-native';
-import BarcodeMask from 'react-native-barcode-mask';
+import Sound from 'react-native-sound';
 
 import { Toast } from 'native-base';
 import Svg, {
@@ -22,6 +22,14 @@ const CaptureScreen = props => {
   const [badPosture, setBadPosture] = React.useState(false);
   const [currentPostureBad, setCurrentPosture] = React.useState(false);
   const [postureChangeTime, setPostureChangeTime] = React.useState(null);
+  const [alertSound, setAlertSound] = React.useState(null);
+  const [successSound, setSuccessSound] = React.useState(null);
+
+  React.useEffect(() => {
+    Sound.setCategory('Playback');
+    setAlertSound(new Sound('alert.mp3', Sound.MAIN_BUNDLE));
+    setSuccessSound(new Sound('success.mp3', Sound.MAIN_BUNDLE));
+  }, []);
 
   const onFacesDetected = (face) => {
     if (!lockFrame && face.faces.length) {
@@ -97,6 +105,9 @@ const CaptureScreen = props => {
       });;
       if (!badPosture) {
         Vibration.vibrate(VIBRATION_DURATION);
+        if (alertSound) alertSound.play();
+      } else {
+        if (successSound) successSound.play();
       }
     }
     return result;
