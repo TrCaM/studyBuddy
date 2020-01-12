@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Container, Text } from 'native-base';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import {Text, Button, Toast} from 'native-base';
 
@@ -17,15 +17,15 @@ const AccountScreen = props => {
         duration: 3000,
       });
       props.navigation.navigate('Login');
-    } catch(e) {
-      console.log("Sign out failed!");
+    } catch (e) {
+      console.log('Sign out failed!');
     }
   };
   return (
     <View style={styles.container}>
-        <Button style={styles.button} dark onPress={logOut}>
-          <Text>Sign out</Text>
-        </Button>
+      <Button style={styles.button} dark onPress={logOut}>
+        <Text>Sign out</Text>
+      </Button>
     </View>
   );
 };
@@ -40,6 +40,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
 
 export default AccountScreen;

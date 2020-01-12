@@ -15,6 +15,7 @@
 		1CE458B3F863BCEE16CAEC88 /* libPods-studyBuddy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E5858DA80F937C411EEA7B /* libPods-studyBuddy.a */; };
 		1EF7B70E569936E0F9230620 /* libPods-studyBuddyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B955CAA2390A0DB8C781E9 /* libPods-studyBuddyTests.a */; };
 		281F03F423CA778500380322 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 281F03F323CA778500380322 /* GoogleService-Info.plist */; };
+		28FC1EEB23CAFD65006D75E7 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC1EEA23CAFD65006D75E7 /* File.swift */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -59,6 +60,8 @@
 		1518B972D97A42B197C29A65 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		273F8B0CBD1E41CA896E943F /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		281F03F323CA778500380322 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		28FC1EE923CAFD64006D75E7 /* studyBuddy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "studyBuddy-Bridging-Header.h"; sourceTree = "<group>"; };
+		28FC1EEA23CAFD65006D75E7 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = studyBuddy/File.swift; sourceTree = "<group>"; };
 		299220E4A73440E37E039218 /* libPods-studyBuddy-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-studyBuddy-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CACC39DFE8A5D18D99BAB79 /* Pods-studyBuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-studyBuddy.release.xcconfig"; path = "Target Support Files/Pods-studyBuddy/Pods-studyBuddy.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* studyBuddy-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "studyBuddy-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +195,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				28FC1EEA23CAFD65006D75E7 /* File.swift */,
 				281F03F323CA778500380322 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* studyBuddy */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -200,6 +204,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2848968D2DBC57D28EE66B22 /* Pods */,
 				F35C9684054C42749B8DE369 /* Resources */,
+				28FC1EE923CAFD64006D75E7 /* studyBuddy-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = YRK78GQA7S;
+						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -642,6 +648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				28FC1EEB23CAFD65006D75E7 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,6 +702,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AD12180FC751D1A49A3ABF02 /* Pods-studyBuddyTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -718,6 +726,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F457A16E4147C090708C6F49 /* Pods-studyBuddyTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = studyBuddyTests/Info.plist;
@@ -739,6 +748,7 @@
 			baseConfigurationReference = A361376E0B5DD013DD4041D9 /* Pods-studyBuddy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = YRK78GQA7S;
@@ -751,6 +761,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.studyBuddy123456;
 				PRODUCT_NAME = studyBuddy;
+				SWIFT_OBJC_BRIDGING_HEADER = "studyBuddy-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -760,6 +773,7 @@
 			baseConfigurationReference = 2CACC39DFE8A5D18D99BAB79 /* Pods-studyBuddy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YRK78GQA7S;
 				INFOPLIST_FILE = studyBuddy/Info.plist;
@@ -771,6 +785,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.studyBuddy123456;
 				PRODUCT_NAME = studyBuddy;
+				SWIFT_OBJC_BRIDGING_HEADER = "studyBuddy-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
