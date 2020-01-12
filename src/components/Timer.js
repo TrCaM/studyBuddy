@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Alert, Text, View, StyleSheet, ScrollView, Image, FlatList, List } from 'react-native';
 import moment from 'moment';
-import { Card, Icon, ListItem  } from 'react-native-elements';
-import { Button, Container, Input, Item, Form, Label } from 'native-base';
+import { Card, ListItem  } from 'react-native-elements';
+import { Button, Container, Input, Item, Form, Label, Content } from 'native-base';
 import TimerLoader from './TimerLoader';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Timer extends Component {
 
@@ -19,12 +19,17 @@ export default class Timer extends Component {
     const { restInterval, studyInterval, periods } = this.settings;
 
     this.state = {
-      eventDate: moment.duration().add({ days: 0, hours: 0, minutes: 0, seconds: this.studyInterval}),
+      eventDate: moment.duration().add({ days: 0, hours: 0, minutes: studyInterval, seconds: 0}),
       hours: 0,
-      mins: 0,
-      secs: studyInterval,
+      mins: studyInterval,
+      secs: 0,
       status: 'Studying',
       roundLeft: periods,
+
+      buttonPauseIcon: 'pause',
+      buttonPauseBG: '#9CEC5B',
+      buttonPauseTitle: 'Pause',
+      buttonPauseStyle: styles.pauseButtonStyle,
     }
   };
 
@@ -101,17 +106,35 @@ export default class Timer extends Component {
     return `${hours}:${mins}:${secs}`
   }
 
+  buttonPauseStyleChange(){
+    if (this.state.buttonPauseTitle == 'Pause'){
+      clearInterval(this.x), 
+      this.setState({
+        buttonPauseIcon: 'play',
+        buttonPauseTitle: 'Resume',
+        buttonPauseStyle: styles.playButtonStyle,
+      })
+    } else if (this.state.buttonPauseTitle == 'Resume'){
+      this.updateTimer()
+      this.setState({
+        buttonPauseIcon: 'pause',
+        buttonPauseBG: '#9CEC5B',
+        buttonPauseTitle: 'Pause',
+        buttonPauseStyle: styles.pauseButtonStyle,
+      })
+    }
 
+  }
 ////////////////////////////////// UI /////////////////////////////////////////////
   render() {
     const { hours, mins, secs } = this.state
     return (
-      <Container>
+      <Container style={styles.container}>
         <Text>
           Round Left: {this.state.roundLeft}
         </Text>
 
-        <View style={styles.container}>
+        <View style={styles.timer}>
           <Text style={styles.timerText}>
             {this.timeStringGenerateor(hours, mins, secs)}
           </Text>
@@ -121,7 +144,42 @@ export default class Timer extends Component {
             {this.state.status}
           </Text>
         </View>
+        {/* //////////////////// Buttons ///////////////////////// */}
+        <View style={styles.buttonContainer}>
+          {/* ///////////////// Pause Button ////////////////// */}
+          <Button 
+            large 
+            rounded 
+            style={this.state.buttonPauseStyle}
+            onPress={() => {
+              this.buttonPauseStyleChange()
+            }}
+            >
+            <Text>   </Text>
+            <Icon name={this.state.buttonPauseIcon} color='white' size={30}/>
+            <Text>   </Text>
+            <Text style={styles.buttonText}>
+              {this.state.buttonPauseTitle} 
+            </Text>
+            <Text>   </Text>
+          </Button>
 
+          {/* ///////////////// Stop Button ////////////////// */}
+          <Button 
+            large 
+            rounded 
+            style={styles.stopButtonStyle}
+            onPress={() => clearInterval(this.x)}
+            >
+            <Text>   </Text>
+            <Icon name='stop' color='white' size={30}/>
+            <Text>   </Text>
+            <Text style={styles.buttonText}>
+              Stop 
+            </Text>
+            <Text>   </Text>
+          </Button>
+        </View>
       </Container>
     );
   };
@@ -131,6 +189,10 @@ export default class Timer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  timer: {
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -144,12 +206,34 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   
-  buttonStyle:{
-    justifyContent: 'center',
+  pauseButtonStyle:{
+    display: 'flex',
+    justifyContent: 'space-around',
+    backgroundColor: '#EDAE49'
   },
 
+  playButtonStyle:{
+    display: 'flex',
+    justifyContent: 'space-around',
+    backgroundColor: '#9CEC5B'
+  },
+  
+  stopButtonStyle:{
+    display: 'flex',
+    justifyContent: 'space-around',
+    backgroundColor: '#F67E7D'
+  },
+  
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
   },
+
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  }
 })
