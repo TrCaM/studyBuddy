@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 
-import {Text, Button, Item, Input, Form, Toast} from 'native-base';
+import {Text, Button, Item, Input, Form, Toast, Header, Body, Title} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -52,6 +52,7 @@ const LoginScreen = props => {
         .doc(this.user.uid)
         .get();
       if (!userData.exists) {
+        console.log(userData);
         await firestore()
           .collection('users')
           .doc(this.user.uid)
@@ -111,6 +112,7 @@ const LoginScreen = props => {
 
   return (
     <View style={styles.container}>
+      
       <Image style={styles.logo} source={require('../assets/Android.png')} />
       <Form style={styles.loginForm}>
         <Item>
