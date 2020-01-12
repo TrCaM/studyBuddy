@@ -27,6 +27,7 @@ const CaptureScreen = props => {
   const [postureChangeTime, setPostureChangeTime] = React.useState(null);
   const [alertSound, setAlertSound] = React.useState(null);
   const [successSound, setSuccessSound] = React.useState(null);
+  const [startTime, setStartTime] = React.useState(null);
 
   React.useEffect(() => {
     Sound.setCategory('Playback');
@@ -119,7 +120,7 @@ const CaptureScreen = props => {
   return (
     <View style={styles.container}>
       <Overlay isVisible={isStart} overlayBackgroundColor="transparent" fullScreen>
-        <TimerScreen onPause={startTracking} onResume={startTracking} navigation={props.navigation}/>
+        <TimerScreen startTime={startTime} onPause={startTracking} onResume={startTracking} navigation={props.navigation}/>
       </Overlay>
       <RNCamera
         style={styles.camera}
@@ -139,7 +140,7 @@ const CaptureScreen = props => {
       </RNCamera>
       <Button 
         title="start" 
-        onPress={() => { startTracking(); setStart(true);}}/>
+        onPress={() => { startTracking(); setStart(true); setStartTime(new Date())}}/>
     </View>
   );
 };

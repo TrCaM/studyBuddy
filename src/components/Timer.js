@@ -1,27 +1,19 @@
 import React, {Component} from 'react';
 import {
-  Alert,
   Text,
   View,
   StyleSheet,
-  ScrollView,
-  Image,
-  FlatList,
-  List,
 } from 'react-native';
 import moment from 'moment';
-import {Card, ListItem} from 'react-native-elements';
 import {
   Button,
   Container,
-  Input,
-  Item,
-  Form,
-  Label,
-  Content,
 } from 'native-base';
 import TimerLoader from './TimerLoader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default class Timer extends Component {
   constructor(props) {
@@ -29,10 +21,19 @@ export default class Timer extends Component {
 
     //set time length here
     this.settings = props.settings;
+    const {restInterval, studyInterval, periods} = this.settings;
+    this.result = { 
+      startTime: props.startTime,
+      periods,
+      studyInterval,
+      restInterval,
+      complete: false,
+      quality: 0, 
+      user: `/users/${auth().currentUser.uid}`
+    };
     // this.restInterval = props.setting
     // this.studyInterval = 3
     // this.roundNum = 1
-    const {restInterval, studyInterval, periods} = this.settings;
 
     this.state = {
       eventDate: moment
@@ -189,6 +190,7 @@ export default class Timer extends Component {
             style={styles.stopButtonStyle}
             onPress={() => {
               clearInterval(this.x);
+              this.result.stopTime = new Date().getTime();
               this.props.gotoResult();
             }}>
             <Text> </Text>
