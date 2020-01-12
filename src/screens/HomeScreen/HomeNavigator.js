@@ -14,7 +14,7 @@ const TabNavigator = createBottomTabNavigator({
     // Camera: CaptureScreen,
     Account: AccountScreen,
     Settings: SettingScreen,
-    History: History,
+    // History: History,
     // Result: ResultScreen,
   },
   {
