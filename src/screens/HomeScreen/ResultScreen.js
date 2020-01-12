@@ -9,7 +9,7 @@ import {
   Body,
   Content,
 } from 'native-base';
-import LottieView from 'lottie-react-native';
+// import LottieView from 'lottie-react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Donut from '../../components/Donut';
 
@@ -72,8 +72,8 @@ export default class ResultScreen extends Component {
                       style={{
                         fontSize: 35,
                         fontWeight: 'bold',
-                        paddingVertical: 65,
-                        paddingHorizontal: 65,
+                        paddingVertical: 55,
+                        paddingHorizontal: 50,
                       }}>
                       {this.result.quality}%
                     </Text>

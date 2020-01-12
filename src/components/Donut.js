@@ -16,7 +16,7 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 const Donut = props => {
   return (
     <AnimatedCircularProgress
-      size={180}
+      size={150}
       width={15}
       fill={props.percentage}
       tintColor="#00e0ff"

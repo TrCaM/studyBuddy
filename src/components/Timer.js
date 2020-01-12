@@ -22,6 +22,7 @@ import {
 } from 'native-base';
 import TimerLoader from './TimerLoader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Donut from './Donut';
 
 export default class Timer extends Component {
   constructor(props) {
@@ -151,10 +152,19 @@ export default class Timer extends Component {
     return (
       <Container style={styles.container}>
         <View style={styles.timer}>
+          <View style={{position: 'absolute'}}>
+            <Donut
+              percentage={
+                ((this.state.mins * 60 + this.state.secs) /
+                  (this.settings.studyInterval * 60)) *
+                100
+              }
+            />
+          </View>
           <Text style={styles.timerText}>
             {this.timeStringGenerateor(hours, mins, secs)}
           </Text>
-          <TimerLoader />
+          {/* <TimerLoader /> */}
 
           <Text style={styles.statusText}>{this.state.status}</Text>
         </View>
@@ -190,7 +200,7 @@ export default class Timer extends Component {
             <Text style={styles.buttonText}>Stop</Text>
           </Button>
         </View>
-        <View style={{paddingBottom: 50}}>
+        <View style={{paddingBottom: 10}}>
           <Text style={styles.statusText}>
             Round left: {this.state.roundLeft}
           </Text>
@@ -209,6 +219,7 @@ const styles = StyleSheet.create({
 
   timer: {
     // flex: 3,
+    paddingTop: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -250,7 +261,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
-    paddingTop: 350,
+    paddingTop: 420,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
