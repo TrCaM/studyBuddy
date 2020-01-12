@@ -144,6 +144,7 @@ const CaptureScreen = props => {
         overlayBackgroundColor="transparent"
         fullScreen>
         <TimerScreen
+          startTime={startTime}
           onPause={startTracking}
           onResume={startTracking}
           navigation={props.navigation}
