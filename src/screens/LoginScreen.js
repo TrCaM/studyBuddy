@@ -1,7 +1,17 @@
 import React, {useState} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet, ImageBackground} from 'react-native';
 
-import {Text, Button, Item, Input, Form, Toast, Header, Body, Title} from 'native-base';
+import {
+  Text,
+  Button,
+  Item,
+  Input,
+  Form,
+  Toast,
+  Header,
+  Body,
+  Title,
+} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -112,33 +122,49 @@ const LoginScreen = props => {
 
   return (
     <View style={styles.container}>
-      
-      <Image style={styles.logo} source={require('../assets/Android.png')} />
-      <Form style={styles.loginForm}>
-        <Item>
-          <Input placeholder="Email" onChangeText={email => setEmail(email)} />
-        </Item>
-        <Item last>
-          <Input
-            secureTextEntry={true}
-            placeholder="Password"
-            onChangeText={password => setPassword(password)}
-          />
-        </Item>
-        <Animatable.View animation="slideInLeft" iterationCount={1}>
-          <Button style={styles.button} dark onPress={signIn}>
-            <Text>Login</Text>
-          </Button>
-        </Animatable.View>
-        <Animatable.View animation="slideInRight" iterationCount={1}>
-          <Button style={styles.button} dark onPress={register}>
-            <Text>Sign up</Text>
-          </Button>
-        </Animatable.View>
-        <Animatable.View animation="slideInDown" iterationCount={1}>
-          <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
-        </Animatable.View>
-      </Form>
+      <ImageBackground
+        style={{
+          flex: 1,
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          opacity: 0.7,
+        }}
+        source={require('../assets/resultBG.jpg')}>
+        <Image
+          style={styles.logo}
+          source={require('../assets/StudyBuddyLogo.png')}
+        />
+        <Form style={styles.loginForm}>
+          <Item>
+            <Input
+              placeholder="Email"
+              onChangeText={email => setEmail(email)}
+            />
+          </Item>
+          <Item last>
+            <Input
+              secureTextEntry={true}
+              placeholder="Password"
+              onChangeText={password => setPassword(password)}
+            />
+          </Item>
+          <Animatable.View animation="slideInLeft" iterationCount={1}>
+            <Button style={styles.button} dark onPress={signIn}>
+              <Text>Login</Text>
+            </Button>
+          </Animatable.View>
+          <Animatable.View animation="slideInRight" iterationCount={1}>
+            <Button style={styles.button} dark onPress={register}>
+              <Text>Sign up</Text>
+            </Button>
+          </Animatable.View>
+          <Animatable.View animation="slideInDown" iterationCount={1}>
+            <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
+          </Animatable.View>
+        </Form>
+      </ImageBackground>
     </View>
   );
 };

@@ -60,6 +60,7 @@ export default class SettingScreen extends Component {
   render() {
     return (
       <Container style={{ display: 'flex' }}>
+
         <Header style={{ backgroundColor: '#166088' }}>
           <Body>
             <Title>Settings</Title>
@@ -113,7 +114,7 @@ export default class SettingScreen extends Component {
                 }
               />
             </Item>
-            <Item stackedLabel>
+            {/* <Item stackedLabel>
               <Label style={styles.labelStyle}>
                 Max Pause Time (times): {"\n"}(Last choice: {this.state.settings.maxPauseInterval} times)
               </Label>
@@ -128,7 +129,7 @@ export default class SettingScreen extends Component {
                   })
                 }
               />
-            </Item>
+            </Item> */}
           </Form>
         </ScrollView>
         <Container style={styles.buttonStyle}>
