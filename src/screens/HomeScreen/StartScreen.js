@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 // import { Container, Text } from 'native-base';
 import * as Animatable from 'react-native-animatable';
@@ -23,7 +16,7 @@ const StartScreen = props => {
         <TouchableOpacity onPress={playOnPress}>
           <Image
             source={require('../../assets/Play.png')}
-            style={{ width: 200, height: 200 }}
+            style={styles.imageStyle}
           />
         </TouchableOpacity>
       </Animatable.View>
@@ -35,10 +28,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 200,
-    // flexDirection: '',
     alignItems: 'center',
-
-    // backgroundColor: 'black',
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
   },
 });
 

@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Image,
-  StyleSheet } from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
 import {Text, Button, Item, Input, Form, Toast} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
@@ -47,14 +44,14 @@ const LoginScreen = props => {
     try {
       Toast.show({
         text: 'Signing up...',
-      });;
+      });
       await auth().createUserWithEmailAndPassword(email, password);
       Toast.show({
         text: 'Your account was created',
         textStyle: {color: 'green'},
         buttonText: 'close',
         duration: 3000,
-      });;
+      });
     } catch (e) {
       console.log(e);
       onFailed(e);
@@ -65,8 +62,8 @@ const LoginScreen = props => {
     try {
       Toast.show({
         text: 'Signing in...',
-      });;
-      const userData =  await auth().signInWithEmailAndPassword(email, password);
+      });
+      const userData = await auth().signInWithEmailAndPassword(email, password);
       Toast.hide();
       goToHome(userData);
     } catch (e) {

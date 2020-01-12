@@ -1,15 +1,14 @@
 import React from 'react';
 // import { Container, Text } from 'native-base';
-import { RNCamera } from 'react-native-camera';
-import { Text, View, StyleSheet } from 'react-native';
-
+import {RNCamera} from 'react-native-camera';
+import {Text, View, StyleSheet} from 'react-native';
 
 const CaptureScreen = props => {
   return (
     <View style={styles.container}>
       <Text>Face detector</Text>
       <RNCamera
-        style={{ flex: 1 }}
+        style={styles.camera}
         type={RNCamera.Constants.Type.front}
         faceDetectionClassifications={
           RNCamera.Constants.FaceDetection.Classifications.all
@@ -28,7 +27,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: 'black',
+  },
+  camera: {
+    flex: 1,
   },
 });
 
