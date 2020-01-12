@@ -55,6 +55,11 @@ export default class Timer extends Component {
   statusChanging() {
     const {restInterval, studyInterval, periods} = this.settings;
     if (this.state.roundLeft == 0 && this.state.status == 'Resting') {
+      clearInterval(this.x);
+      this.result.stopTime = new Date().getTime();
+      this.result.complete = true;
+      console.log(this.result);
+      this.props.gotoResult();
       //  Alert.alert("Congratulations!!! You've finished your study interval!!")
     } else {
       if (this.state.status == 'Studying') {
@@ -186,6 +191,8 @@ export default class Timer extends Component {
             onPress={() => {
               clearInterval(this.x);
               this.result.stopTime = new Date().getTime();
+              this.result.complete = false;
+              console.log(this.result);
               this.props.gotoResult();
             }}>
             <Icon name="stop" color="white" size={30} />

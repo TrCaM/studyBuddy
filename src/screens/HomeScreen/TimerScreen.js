@@ -23,7 +23,7 @@ const TimerScreen = props => {
   }, []);
 
   const timer = (<Timer
-      startTime={props.startTime.getTime()}
+      startTime={props.startTime}
       onPause = {props.onPause}
       onResume = {props.onResume}
       settings={settings}

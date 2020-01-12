@@ -8,6 +8,7 @@ import TimerScreen from './TimerScreen';
 
 import {Toast} from 'native-base';
 import Svg, {Line, Rect} from 'react-native-svg';
+import EventE from 'Event'
 
 const VIBRATION_DURATION = 1000;
 
@@ -20,6 +21,8 @@ const CaptureScreen = props => {
   const [sideLineRight, setSideLineRight] = React.useState(0);
   const [lockFrame, setLockFrame] = React.useState(false);
   const [badPosture, setBadPosture] = React.useState(false);
+  const [badPostureTime, setBadPostureTime] = React.useState(0);
+  const [badPostureStart, setBadPostureStart] = React.useState(0);
   const [currentPostureBad, setCurrentPosture] = React.useState(false);
   const [postureChangeTime, setPostureChangeTime] = React.useState(null);
   const [alertSound, setAlertSound] = React.useState(null);
@@ -116,7 +119,7 @@ const CaptureScreen = props => {
     } else if (currentPostureBad != badPosture) {
       const delay = new Date().getTime() - postureChangeTime;
       result = (delay > (badPosture ? 2000 : 2001)) ^ badPosture;
-      console.log(delay);
+      // console.log(delay);
     }
     if (result != badPosture) {
       const text = !badPosture ? 'Please fix your posture' : 'Thank you!';
@@ -130,8 +133,12 @@ const CaptureScreen = props => {
       if (!badPosture) {
         Vibration.vibrate(VIBRATION_DURATION);
         if (alertSound) alertSound.play();
+        setBadPostureStart(new Date().getTime());
       } else {
         if (successSound) successSound.play();
+        // console.log("here " + badPostureTime);
+        setBadPostureTime(badPostureTime + new Date().getTime() - badPostureStart);
+        // console.log(badPostureTime);
       }
     }
     return result;
