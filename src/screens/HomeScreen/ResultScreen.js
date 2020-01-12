@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, Image } from 'react-native';
-import { Container, Text, Button, Card, CardItem, Body, Content } from 'native-base';
+import React, {Component} from 'react';
+import {View, StyleSheet, ImageBackground, Image} from 'react-native';
+import {
+  Container,
+  Text,
+  Button,
+  Card,
+  CardItem,
+  Body,
+  Content,
+} from 'native-base';
 import LottieView from 'lottie-react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-
-
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default class ResultScreen extends Component {
-
   constructor(props) {
     super(props);
 
@@ -23,86 +28,79 @@ export default class ResultScreen extends Component {
       success: false,
       studyingInterval: 25,
       restInterval: 5,
-    }
+    };
 
     // const { restInterval, studyInterval, periods } = this.settings;
 
-    this.state = {
-    }
-  };
+    this.state = {};
+  }
 
-  minutesToHours(min){
-    let h = Math.floor(min/60)
-    let m = min - h * 60
+  minutesToHours(min) {
+    let h = Math.floor(min / 60);
+    let m = min - h * 60;
     if (h <= 0) {
-      return(m + ' minutes');
-    } else{
-      return(h + ' hours ' + m + ' minutes');
+      return m + ' minutes';
+    } else {
+      return h + ' hours ' + m + ' minutes';
     }
-  };
-////////////////////////////////// UI /////////////////////////////////////////////
+  }
+  ////////////////////////////////// UI /////////////////////////////////////////////
   render() {
-    const { hours, mins, secs } = this.state
+    const {hours, mins, secs} = this.state;
     return (
       <Container style={styles.bigContainer}>
         <Container style={styles.container1}>
-          <LottieView style={styles.animation} source={require('../../../src/assets/lottieJSON/failed.json')} autoPlay loop />
+          <LottieView
+            style={styles.animation}
+            source={require('../../../src/assets/lottieJSON/failed.json')}
+            autoPlay
+            loop
+          />
           <Text style={styles.result}>You Failed</Text>
         </Container>
         <Container style={styles.container2}>
           <ScrollView>
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
                 <View>
-                  <Text style={styles.resultTitleText}>
-                    Quality: 
-                  </Text>
+                  <Text style={styles.resultTitleText}>Quality:</Text>
                 </View>
-                <View style={{alignSelf:'center'}}>
-                  <Text style={{fontSize:35, fontWeight: 'bold'}}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={{fontSize: 35, fontWeight: 'bold'}}>
                     {this.result.quality}%
                   </Text>
                 </View>
               </CardItem>
             </Card>
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  Start Time: 
-                </Text>
-                <Text style={styles.text}>
-                  {this.result.startTime}
-                </Text>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Start Time:</Text>
+                <Text style={styles.text}>{this.result.startTime}</Text>
               </CardItem>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  End Time: 
-                </Text>
-                <Text style={styles.text}>
-                  {this.result.endTime}
-                </Text>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>End Time:</Text>
+                <Text style={styles.text}>{this.result.endTime}</Text>
               </CardItem>
             </Card>
 
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  Number of Periods: 
-                </Text>
-                <View style={{alignSelf:'center'}}>
-                  <Text style={{fontSize: 20}}>
-                    {this.result.periods}
-                  </Text>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Number of Periods:</Text>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={{fontSize: 20}}>{this.result.periods}</Text>
                 </View>
               </CardItem>
             </Card>
 
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  Pause Interval:
-                </Text>
-                <View style={{alignSelf:'center'}}>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Pause Interval:</Text>
+                <View style={{alignSelf: 'center'}}>
                   <Text style={{fontSize: 20}}>
                     {this.minutesToHours(this.result.pauseInterval)}
                   </Text>
@@ -111,11 +109,10 @@ export default class ResultScreen extends Component {
             </Card>
 
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  Studying Interval:
-                </Text>
-                <View style={{alignSelf:'center'}}>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Studying Interval:</Text>
+                <View style={{alignSelf: 'center'}}>
                   <Text style={{fontSize: 20}}>
                     {this.minutesToHours(this.result.studyingInterval)}
                   </Text>
@@ -124,11 +121,10 @@ export default class ResultScreen extends Component {
             </Card>
 
             <Card>
-              <CardItem style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>
-                  Rest Interval:
-                </Text>
-                <View style={{alignSelf:'center'}}>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Rest Interval:</Text>
+                <View style={{alignSelf: 'center'}}>
                   <Text style={{fontSize: 20}}>
                     {this.minutesToHours(this.result.restInterval)}
                   </Text>
@@ -137,15 +133,29 @@ export default class ResultScreen extends Component {
             </Card>
           </ScrollView>
         </Container>
+        <View style={styles.buttonStyle}>
+          <Button
+            primary
+            small
+            onPress={() => this.props.navigation.navigate('Home')}>
+            <Text> Back to Home </Text>
+          </Button>
+        </View>
       </Container>
     );
-  };
-};
+  }
+}
 
 const styles = StyleSheet.create({
   bigContainer: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  buttonStyle: {
+    // paddingTop: 50,
+    height: 50,
+    alignItems: 'center',
+    alignContent: 'center',
   },
 
   container1: {
@@ -159,9 +169,9 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 3,
     flexDirection: 'column',
-    alignContent: 'center'
+    alignContent: 'center',
   },
-  
+
   animation: {
     height: 100,
   },
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
   result: {
     fontSize: 40,
   },
-  
+
   text: {
     fontSize: 17,
   },
@@ -178,5 +188,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#EF767A',
-  }
+  },
 });
