@@ -4,15 +4,15 @@ import StartScreen from './StartScreen';
 import TimerScreen from './TimerScreen';
 import CaptureScreen from './CaptureScreen';
 import AccountScreen from './AccountScreen';
+import ResultScreen from './ResultScreen';
 import SettingScreen from './SettingScreen';
-
-const TabNavigator = createBottomTabNavigator(
-  {
+const TabNavigator = createBottomTabNavigator({
     Start: StartScreen,
     Timer: TimerScreen,
     Camera: CaptureScreen,
     Account: AccountScreen,
     Settings: SettingScreen,
+    Result: ResultScreen,
   },
   {
     tabBarOptions: {
