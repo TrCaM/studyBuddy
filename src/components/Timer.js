@@ -52,13 +52,22 @@ export default class Timer extends Component {
     };
   }
 
+  async storeResult() {
+    console.log(this.result);
+    try {
+      await firestore().collection('sessions').add({ ...this.result });
+    } catch(e) {
+      console.log(e.message);
+    }
+  }
+
   statusChanging() {
     const {restInterval, studyInterval, periods} = this.settings;
     if (this.state.roundLeft == 0 && this.state.status == 'Resting') {
       clearInterval(this.x);
-      this.result.stopTime = new Date().getTime();
+      this.result.stopTime = new Date();
       this.result.complete = true;
-      console.log(this.result);
+      this.storeResult();
       this.props.gotoResult();
       //  Alert.alert("Congratulations!!! You've finished your study interval!!")
     } else {
@@ -133,7 +142,7 @@ export default class Timer extends Component {
     return `${hours}:${mins}:${secs}`;
   }
 
-  buttonPauseStyleChange() {
+  buttsetBadPostureTimeonPauseStyleChange() {
     if (this.state.buttonPauseTitle == 'Pause') {
       clearInterval(this.x),
         this.setState({
@@ -190,9 +199,10 @@ export default class Timer extends Component {
             style={styles.stopButtonStyle}
             onPress={() => {
               clearInterval(this.x);
-              this.result.stopTime = new Date().getTime();
+              this.result.stopTime = new Date();
               this.result.complete = false;
-              console.log(this.result);
+              this.result.badPostureTime = this.props.badPostureTime;
+              this.storeResult();
               this.props.gotoResult();
             }}>
             <Icon name="stop" color="white" size={30} />

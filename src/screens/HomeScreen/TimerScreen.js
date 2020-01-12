@@ -23,6 +23,7 @@ const TimerScreen = props => {
   }, []);
 
   const timer = (<Timer
+      badPostureTime={props.badPostureTime}
       startTime={props.startTime}
       onPause = {props.onPause}
       onResume = {props.onResume}

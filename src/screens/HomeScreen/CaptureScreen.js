@@ -8,7 +8,6 @@ import TimerScreen from './TimerScreen';
 
 import {Toast} from 'native-base';
 import Svg, {Line, Rect} from 'react-native-svg';
-import EventE from 'Event'
 
 const VIBRATION_DURATION = 1000;
 
@@ -128,7 +127,7 @@ const CaptureScreen = props => {
         textStyle: {color: !badPosture ? 'red' : 'green'},
         buttonText: 'close',
         duration: 3000,
-        position: 'top',
+        position: 'bottom',
       });
       if (!badPosture) {
         Vibration.vibrate(VIBRATION_DURATION);
@@ -136,9 +135,9 @@ const CaptureScreen = props => {
         setBadPostureStart(new Date().getTime());
       } else {
         if (successSound) successSound.play();
-        // console.log("here " + badPostureTime);
-        setBadPostureTime(badPostureTime + new Date().getTime() - badPostureStart);
-        // console.log(badPostureTime);
+        const now = new Date().getTime();
+        setBadPostureTime(badPostureTime + now - badPostureStart);
+        console.log(badPostureTime + now - badPostureStart);
       }
     }
     return result;
@@ -151,6 +150,7 @@ const CaptureScreen = props => {
         overlayBackgroundColor="transparent"
         fullScreen>
         <TimerScreen
+          badPostureTime={badPostureTime}
           startTime={startTime}
           onPause={startTracking}
           onResume={startTracking}
