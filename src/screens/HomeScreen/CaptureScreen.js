@@ -172,7 +172,8 @@ const CaptureScreen = props => {
         <Text style={{color: 'red'}}>
           {badPosture ? 'Bad Posture!' : 'Good Posture!'}
         </Text>
-        {detected ? frame : null}
+        {/* {detected ? frame : null} */}
+        {false ? frame : null}
       </RNCamera>
       {showStart ? (
         <Button

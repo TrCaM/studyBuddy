@@ -11,6 +11,7 @@ import {
 } from 'native-base';
 import TimerLoader from './TimerLoader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Donut from './Donut';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -44,7 +45,7 @@ export default class Timer extends Component {
       mins: studyInterval,
       secs: 0,
       status: 'Studying',
-      roundLeft: periods,
+      roundLeft: periods - 1,
 
       buttonPauseIcon: 'pause',
       buttonPauseBG: '#9CEC5B',
@@ -54,7 +55,7 @@ export default class Timer extends Component {
   }
 
   async storeResult(navigation) {
-    console.log(this.result);
+    this.result.quality = this.calculateQuality(this.result);
     try {
       const ref = await firestore().collection('sessions').add({ ...this.result });
       navigation.navigate('Result', { refId: ref.id });
@@ -62,10 +63,18 @@ export default class Timer extends Component {
       console.log(e.message);
     }
   }
+  
+  calculateQuality(result) {
+    const focusDuration = result.stopTime.getTime() - result.startTime.getTime() - result.badPostureTime;
+    const expectedDuration = 60 * 1000 * (result.studyInterval * result.periods + result.restInterval * (result.periods -1));
+    console.log("focus: " + focusDuration);
+    console.log("expected: " + expectedDuration);
+    return (focusDuration / expectedDuration) * 100;
+  }
 
   statusChanging() {
     const {restInterval, studyInterval, periods} = this.settings;
-    if (this.state.roundLeft == 0 && this.state.status == 'Resting') {
+    if (this.state.roundLeft == 0 && this.state.status == 'Studying') {
       clearInterval(this.x);
       this.result.stopTime = new Date();
       this.result.complete = true;
@@ -167,10 +176,20 @@ export default class Timer extends Component {
     return (
       <Container style={styles.container}>
         <View style={styles.timer}>
+          <View style={{position: 'absolute', paddingTop: 240}}>
+            <Donut
+              size={400}
+              percentage={
+                ((this.state.mins * 60 + this.state.secs) /
+                  (this.settings.studyInterval * 60)) *
+                100
+              }
+            />
+          </View>
           <Text style={styles.timerText}>
             {this.timeStringGenerateor(hours, mins, secs)}
           </Text>
-          <TimerLoader />
+          {/* <TimerLoader /> */}
 
           <Text style={styles.statusText}>{this.state.status}</Text>
         </View>
@@ -182,7 +201,7 @@ export default class Timer extends Component {
             rounded
             style={this.state.buttonPauseStyle}
             onPress={() => {
-              this.buttonPauseStyleChange();
+              this.buttsetBadPostureTimeonPauseStyleChange();
               if (this.state.buttonPauseTitle == 'Pause') {
                 this.props.onPause();
               } else if (this.state.buttonPauseTitle == 'Resume') {
@@ -190,7 +209,7 @@ export default class Timer extends Component {
               }
             }}>
             <Icon name={this.state.buttonPauseIcon} color="white" size={30} />
-            <Text style={styles.buttonText}>{this.state.buttonPauseTitle}</Text>
+            <Text style={styles.buttonText}>  {this.state.buttonPauseTitle}</Text>
           </Button>
 
           {/* ///////////////// Stop Button ////////////////// */}
@@ -206,10 +225,10 @@ export default class Timer extends Component {
               this.storeResult(this.navigation);
             }}>
             <Icon name="stop" color="white" size={30} />
-            <Text style={styles.buttonText}>Stop</Text>
+            <Text style={styles.buttonText}>  Stop</Text>
           </Button>
         </View>
-        <View style={{paddingBottom: 50}}>
+        <View style={{paddingBottom: 10}}>
           <Text style={styles.statusText}>
             Round left: {this.state.roundLeft}
           </Text>
@@ -228,17 +247,20 @@ const styles = StyleSheet.create({
 
   timer: {
     // flex: 3,
+    paddingTop: 260,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   timerText: {
     fontSize: 50,
+    color: 'white',
   },
 
   statusText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: 'white',
   },
 
   pauseButtonStyle: {
@@ -269,7 +291,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
-    paddingTop: 350,
+    paddingTop: 220,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',

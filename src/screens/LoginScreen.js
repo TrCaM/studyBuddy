@@ -5,6 +5,7 @@ import {Text, Button, Item, Input, Form, Toast} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import * as Animatable from 'react-native-animatable';
 
 // import auth from '@react-native-firebase/auth';
 
@@ -122,13 +123,19 @@ const LoginScreen = props => {
             onChangeText={password => setPassword(password)}
           />
         </Item>
-        <Button style={styles.button} dark onPress={signIn}>
-          <Text>Login</Text>
-        </Button>
-        <Button style={styles.button} dark onPress={register}>
-          <Text>Sign up</Text>
-        </Button>
-        <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
+        <Animatable.View animation="slideInLeft" iterationCount={1}>
+          <Button style={styles.button} dark onPress={signIn}>
+            <Text>Login</Text>
+          </Button>
+        </Animatable.View>
+        <Animatable.View animation="slideInRight" iterationCount={1}>
+          <Button style={styles.button} dark onPress={register}>
+            <Text>Sign up</Text>
+          </Button>
+        </Animatable.View>
+        <Animatable.View animation="slideInDown" iterationCount={1}>
+          <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
+        </Animatable.View>
       </Form>
     </View>
   );
