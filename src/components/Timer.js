@@ -21,6 +21,7 @@ export default class Timer extends Component {
 
     //set time length here
     this.settings = props.settings;
+    this.navigation = props.navigation;
     const {restInterval, studyInterval, periods} = this.settings;
     this.result = { 
       startTime: props.startTime,
@@ -52,10 +53,11 @@ export default class Timer extends Component {
     };
   }
 
-  async storeResult() {
+  async storeResult(navigation) {
     console.log(this.result);
     try {
-      await firestore().collection('sessions').add({ ...this.result });
+      const ref = await firestore().collection('sessions').add({ ...this.result });
+      navigation.navigate('Result', { refId: ref.id });
     } catch(e) {
       console.log(e.message);
     }
@@ -67,8 +69,7 @@ export default class Timer extends Component {
       clearInterval(this.x);
       this.result.stopTime = new Date();
       this.result.complete = true;
-      this.storeResult();
-      this.props.gotoResult();
+      this.storeResult(this.navigation);
       //  Alert.alert("Congratulations!!! You've finished your study interval!!")
     } else {
       if (this.state.status == 'Studying') {
@@ -202,8 +203,7 @@ export default class Timer extends Component {
               this.result.stopTime = new Date();
               this.result.complete = false;
               this.result.badPostureTime = this.props.badPostureTime;
-              this.storeResult();
-              this.props.gotoResult();
+              this.storeResult(this.navigation);
             }}>
             <Icon name="stop" color="white" size={30} />
             <Text style={styles.buttonText}>Stop</Text>

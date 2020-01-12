@@ -12,9 +12,14 @@ import {
 import LottieView from 'lottie-react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import moment from "moment";
+
 export default class ResultScreen extends Component {
   constructor(props) {
     super(props);
+    this.refId = props.navigation.getParam('refId');
 
     //set time length here
     this.result = {
@@ -32,7 +37,25 @@ export default class ResultScreen extends Component {
 
     // const { restInterval, studyInterval, periods } = this.settings;
 
-    this.state = {};
+    this.state = {
+      loaded: false,
+    };
+  }
+
+  async componentDidMount() {
+    try {
+      const dataRef = await firestore().collection('sessions').doc(this.refId).get();
+      const data = dataRef.data();
+      this.setState({
+        loaded: true,
+        ...data,
+        startTime: new firestore.Timestamp(data.startTime.seconds, data.startTime.nanoseconds).toDate(),
+        stopTime: new firestore.Timestamp(data.stopTime.seconds, data.stopTime.nanoseconds).toDate()
+      })
+      // console.log(documentRef.data());
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   minutesToHours(min) {
@@ -46,8 +69,12 @@ export default class ResultScreen extends Component {
   }
   ////////////////////////////////// UI /////////////////////////////////////////////
   render() {
-    const {hours, mins, secs} = this.state;
-    return (
+    // const {hours, mins, secs} = this.state;
+    console.log("here: " + this.state.startTime);
+    if (this.state.loaded) {
+      const duration = moment.duration(this.state.stopTime.getTime() - this.state.startTime.getTime());
+      const badDuration = moment.duration(this.state.badPostureTime);
+      return (
       <Container style={styles.bigContainer}>
         <Container style={styles.container1}>
           <LottieView
@@ -68,7 +95,7 @@ export default class ResultScreen extends Component {
                 </View>
                 <View style={{alignSelf: 'center'}}>
                   <Text style={{fontSize: 35, fontWeight: 'bold'}}>
-                    {this.result.quality}%
+                    {this.state.quality}%
                   </Text>
                 </View>
               </CardItem>
@@ -77,12 +104,26 @@ export default class ResultScreen extends Component {
               <CardItem
                 style={{flexDirection: 'column', alignItems: 'flex-start'}}>
                 <Text style={styles.resultTitleText}>Start Time:</Text>
-                <Text style={styles.text}>{this.result.startTime}</Text>
+                <Text style={styles.text}>
+                  {moment(this.state.startTime.toLocaleDateString()).calendar()}
+                </Text>
               </CardItem>
               <CardItem
                 style={{flexDirection: 'column', alignItems: 'flex-start'}}>
                 <Text style={styles.resultTitleText}>End Time:</Text>
-                <Text style={styles.text}>{this.result.endTime}</Text>
+                <Text style={styles.text}>
+                  {moment(this.state.stopTime.toLocaleDateString()).calendar()}
+                </Text>
+              </CardItem>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Focus Duration</Text>
+                <Text style={styles.text}>{`${duration.hours()} hours ${duration.minutes()} minutes ${duration.asSeconds()} seconds`}</Text>
+              </CardItem>
+              <CardItem
+                style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={styles.resultTitleText}>Distract And Out of Posture Estimation</Text>
+                <Text style={styles.text}>{`${badDuration.hours()} hours ${badDuration.minutes()} minutes ${badDuration.asSeconds()} seconds`}</Text>
               </CardItem>
             </Card>
 
@@ -91,7 +132,7 @@ export default class ResultScreen extends Component {
                 style={{flexDirection: 'column', alignItems: 'flex-start'}}>
                 <Text style={styles.resultTitleText}>Number of Periods:</Text>
                 <View style={{alignSelf: 'center'}}>
-                  <Text style={{fontSize: 20}}>{this.result.periods}</Text>
+                  <Text style={{fontSize: 20}}>{this.state.periods}</Text>
                 </View>
               </CardItem>
             </Card>
@@ -99,10 +140,10 @@ export default class ResultScreen extends Component {
             <Card>
               <CardItem
                 style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <Text style={styles.resultTitleText}>Pause Interval:</Text>
+                <Text style={styles.resultTitleText}>Rest Interval:</Text>
                 <View style={{alignSelf: 'center'}}>
                   <Text style={{fontSize: 20}}>
-                    {this.minutesToHours(this.result.pauseInterval)}
+                    {this.minutesToHours(this.state.restInterval)}
                   </Text>
                 </View>
               </CardItem>
@@ -143,6 +184,8 @@ export default class ResultScreen extends Component {
         </View>
       </Container>
     );
+      }
+    return null;
   }
 }
 
