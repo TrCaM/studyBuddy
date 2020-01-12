@@ -35,6 +35,8 @@ target 'studyBuddy' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'react-native-camera', path: '../node_modules/react-native-camera', subspecs: ['FaceDetectorMLKit']
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'studyBuddyTests' do
     inherit! :search_paths
     # Pods for testing
