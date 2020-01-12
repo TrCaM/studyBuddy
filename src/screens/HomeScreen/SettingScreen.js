@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Container,
   Text,
@@ -15,7 +15,8 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class SettingScreen extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ export default class SettingScreen extends Component {
         .collection('users')
         .doc(this.user.uid)
         .get();
-      this.setState({settings: userData.data().settings});
+      this.setState({ settings: userData.data().settings });
     } catch (e) {
       console.log(e.message);
     }
@@ -49,7 +50,7 @@ export default class SettingScreen extends Component {
       await firestore()
         .collection('users')
         .doc(user.uid)
-        .update({settings: this.state.settings});
+        .update({ settings: this.state.settings });
     } catch (e) {
       console.log(e.message);
     }
@@ -58,66 +59,80 @@ export default class SettingScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <Header>
+      <Container style={{ display: 'flex' }}>
+        <Header style={{ backgroundColor: '#166088' }}>
           <Body>
             <Title>Settings</Title>
           </Body>
         </Header>
-        <Form style={styles.container}>
-          <Item>
-            <Label style={styles.labelStyle}>Number of Periods: </Label>
-            <Input
-              placeholder={(this.state.settings.periods || '') + '\tperiods'}
-              onChangeText={input =>
-                this.setState({
-                  settings: {...this.state.settings, periods: input},
-                })
-              }
-            />
-          </Item>
-          <Item>
-            <Label style={styles.labelStyle}>Study Interval: </Label>
-            <Input
-              placeholder={
-                (this.state.settings.studyInterval || '') + '\tminutes'
-              }
-              onChangeText={input =>
-                this.setState({
-                  settings: {...this.state.settings, studyInterval: input},
-                })
-              }
-            />
-          </Item>
-          <Item>
-            <Label style={styles.labelStyle}>Rest Interval: </Label>
-            <Input
-              placeholder={
-                (this.state.settings.restInterval || '') + '\tminutes'
-              }
-              onChangeText={input =>
-                this.setState({
-                  settings: {...this.state.settings, restInterval: input},
-                })
-              }
-            />
-          </Item>
-          <Item>
-            <Label style={styles.labelStyle}>Max Pause Time: </Label>
-            <Input
-              placeholder={
-                (this.state.settings.maxPauseInterval || '') + '\tminutes'
-              }
-              onChangeText={input =>
-                this.setState({
-                  settings: {...this.state.settings, maxPauseInterval: input},
-                })
-              }
-            />
-          </Item>
-        </Form>
+        <ScrollView>
+          <Form style={styles.container}>
+            <Item stackedLabel>
+              <Label style={styles.labelStyle}>
+                Number of Periods (periods): {"\n"}(Last choice: {this.state.settings.periods} periods)
+              </Label>
+              <Input
+                // placeholder={(this.state.settings.periods || '') + '\tperiods'}
+                keyboardType='numeric'
+                onChangeText={input =>
+                  this.setState({
+                    settings: { ...this.state.settings, periods: input },
+                  })
+                }
+              />
+            </Item>
+            <Item stackedLabel>
+              <Label style={styles.labelStyle}>
+                Study Interval (minutes): {"\n"}(Last choice: {this.state.settings.studyInterval} min)
+              </Label>
+              <Input
+                // placeholder={
+                //   (this.state.settings.studyInterval || '') + '\tminutes'
+                // }
+                keyboardType='numeric'
+                onChangeText={input =>
+                  this.setState({
+                    settings: { ...this.state.settings, studyInterval: input },
+                  })
+                }
+              />
+            </Item>
+            <Item stackedLabel>
+              <Label style={styles.labelStyle}>
+                Rest Interval (minutes): {"\n"}(Last choice: {this.state.settings.restInterval} min)
+              </Label>
+              <Input
+                // placeholder={
+                //   (this.state.settings.restInterval || '') + '\tminutes'
+                // }
+                keyboardType='numeric'
+                onChangeText={input =>
+                  this.setState({
+                    settings: { ...this.state.settings, restInterval: input },
+                  })
+                }
+              />
+            </Item>
+            <Item stackedLabel>
+              <Label style={styles.labelStyle}>
+                Max Pause Time (times): {"\n"}(Last choice: {this.state.settings.maxPauseInterval} times)
+              </Label>
+              <Input
+                // placeholder={
+                //   (this.state.settings.maxPauseInterval || '') + '\tminutes'
+                // }
+                keyboardType='numeric'
+                onChangeText={input =>
+                  this.setState({
+                    settings: { ...this.state.settings, maxPauseInterval: input },
+                  })
+                }
+              />
+            </Item>
+          </Form>
+        </ScrollView>
         <Container style={styles.buttonStyle}>
-          <Button primary large onPress={this.saveOnClick.bind(this)}>
+          <Button style={{ backgroundColor: '#166088' }} primary rounded large onPress={this.saveOnClick.bind(this)}>
             <Text> Save Settings </Text>
           </Button>
         </Container>
@@ -128,15 +143,14 @@ export default class SettingScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column',
-    paddingTop: 100,
   },
   labelStyle: {
     width: 250,
   },
   buttonStyle: {
-    paddingTop: 50,
+    flex: 3,
     alignItems: 'center',
   },
 });
