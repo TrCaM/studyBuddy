@@ -23,10 +23,12 @@ const TimerScreen = props => {
   }, []);
 
   const timer = (<Timer
+      badPostureTime={props.badPostureTime}
+      startTime={props.startTime}
       onPause = {props.onPause}
       onResume = {props.onResume}
       settings={settings}
-      gotoResult={() => props.navigation.navigate('Result')}
+      navigation={props.navigation}
   />);
 
   return load ? timer : null;
