@@ -75,7 +75,7 @@ const CaptureScreen = props => {
         strokeWidth="2"
         fill="transparent"
       />
-      <Line
+      {/* <Line
         x1="0"
         y1={lowLine || 0}
         x2="100"
@@ -98,7 +98,7 @@ const CaptureScreen = props => {
         y2={frameData.y + frameData.height || 0}
         stroke="red"
         strokeWidth="2"
-      />
+      /> */}
     </Svg>
   );
 
@@ -172,7 +172,7 @@ const CaptureScreen = props => {
         <Text style={{color: 'red'}}>
           {badPosture ? 'Bad Posture!' : 'Good Posture!'}
         </Text>
-        {/* {detected ? frame : null} */}
+        {detected ? frame : null}
         {false ? frame : null}
       </RNCamera>
       {showStart ? (
