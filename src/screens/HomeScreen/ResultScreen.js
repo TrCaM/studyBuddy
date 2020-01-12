@@ -11,6 +11,7 @@ import {
 } from 'native-base';
 import LottieView from 'lottie-react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import Donut from '../../components/Donut';
 
 export default class ResultScreen extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export default class ResultScreen extends Component {
     const {hours, mins, secs} = this.state;
     return (
       <Container style={styles.bigContainer}>
-        <Container style={styles.container1}>
+        {/* <Container style={styles.container1}>
           <LottieView
             style={styles.animation}
             source={require('../../../src/assets/lottieJSON/failed.json')}
@@ -57,19 +58,26 @@ export default class ResultScreen extends Component {
             loop
           />
           <Text style={styles.result}>You Failed</Text>
-        </Container>
+        </Container> */}
         <Container style={styles.container2}>
           <ScrollView>
             <Card>
               <CardItem
                 style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-                <View>
-                  <Text style={styles.resultTitleText}>Quality:</Text>
-                </View>
-                <View style={{alignSelf: 'center'}}>
-                  <Text style={{fontSize: 35, fontWeight: 'bold'}}>
-                    {this.result.quality}%
-                  </Text>
+                <Text style={styles.resultTitleText}>Quality:</Text>
+                <View style={{alignSelf: 'center', flexDirection: 'column'}}>
+                  <Donut percentage={this.result.quality} />
+                  <View style={{position: 'absolute'}}>
+                    <Text
+                      style={{
+                        fontSize: 35,
+                        fontWeight: 'bold',
+                        paddingVertical: 65,
+                        paddingHorizontal: 65,
+                      }}>
+                      {this.result.quality}%
+                    </Text>
+                  </View>
                 </View>
               </CardItem>
             </Card>
