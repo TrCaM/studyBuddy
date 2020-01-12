@@ -6,12 +6,15 @@ import TimerScreen from './TimerScreen';
 import AccountScreen from './AccountScreen';
 // import ResultScreen from './ResultScreen';
 import SettingScreen from './SettingScreen';
+import History from './History';
+
 const TabNavigator = createBottomTabNavigator({
     Start: StartScreen,
     // Timer: TimerScreen,
     // Camera: CaptureScreen,
     Account: AccountScreen,
     Settings: SettingScreen,
+    History: History,
     // Result: ResultScreen,
   },
   {

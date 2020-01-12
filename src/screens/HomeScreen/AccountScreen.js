@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Container, Text } from 'native-base';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 
 import {Text, Button, Toast} from 'native-base';
 
@@ -23,9 +23,18 @@ const AccountScreen = props => {
   };
   return (
     <View style={styles.container}>
+      <ImageBackground style={{
+        flex: 1,
+        width: '100%',
+        height: '150%',
+        justifyContent: "center",
+        alignItems: "center",
+        opacity: 0.7
+      }} source={require('../../assets/BG4.jpg')} >
       <Button style={styles.button} dark onPress={logOut}>
         <Text>Sign out</Text>
       </Button>
+      </ImageBackground>
     </View>
   );
 };

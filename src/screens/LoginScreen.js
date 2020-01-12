@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet, ImageBackground} from 'react-native';
 
 import {Text, Button, Item, Input, Form, Toast} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
@@ -109,8 +109,17 @@ const LoginScreen = props => {
     });
 
   return (
+
     <View style={styles.container}>
-      <Image style={styles.logo} source={require('../assets/Android.png')} />
+      <ImageBackground style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        alignItems: "center",
+        opacity: 0.7
+      }} source={require('../assets/resultBG.jpg')} >
+      <Image style={styles.logo} source={require('../assets/StudyBuddyLogo.png')} />
       <Form style={styles.loginForm}>
         <Item>
           <Input placeholder="Email" onChangeText={email => setEmail(email)} />
@@ -130,6 +139,7 @@ const LoginScreen = props => {
         </Button>
         <GoogleSignIn onSuccess={goToHome} onFailed={onFailed} />
       </Form>
+      </ImageBackground>
     </View>
   );
 };

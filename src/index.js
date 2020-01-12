@@ -4,6 +4,7 @@ import LoginScreen from './screens/LoginScreen.js';
 import HomeNavigator from './screens/HomeScreen/HomeNavigator';
 import CaptureScreen from './screens/HomeScreen/CaptureScreen';
 import ResultScreen from './screens/HomeScreen/ResultScreen';
+import History from './screens/HomeScreen/History';
 import TimerScreen from './screens/HomeScreen/TimerScreen';
 
 const MainNavigator = createSwitchNavigator({
