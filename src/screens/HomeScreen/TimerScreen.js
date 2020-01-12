@@ -22,14 +22,14 @@ const TimerScreen = props => {
     func();
   }, []);
 
-  return (
-    <Timer
+  const timer = (<Timer
       onPause = {props.onPause}
       onResume = {props.onResume}
       settings={settings}
       gotoResult={() => props.navigation.navigate('Result')}
-    />
-  );
+  />);
+
+  return load ? timer : null;
 };
 
 export default TimerScreen;
