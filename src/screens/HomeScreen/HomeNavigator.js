@@ -8,7 +8,7 @@ import AccountScreen from './AccountScreen';
 import SettingScreen from './SettingScreen';
 const TabNavigator = createBottomTabNavigator({
     Start: StartScreen,
-    Timer: TimerScreen,
+    // Timer: TimerScreen,
     // Camera: CaptureScreen,
     Account: AccountScreen,
     Settings: SettingScreen,

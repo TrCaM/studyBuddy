@@ -23,9 +23,12 @@ const TimerScreen = props => {
   }, []);
 
   return (
-    <Container>
-      {load ? <Timer settings={settings} gotoResult={() => props.navigation.navigate('Result')}/> : null}
-    </Container>
+    <Timer
+      onPause = {props.onPause}
+      onResume = {props.onResume}
+      settings={settings}
+      gotoResult={() => props.navigation.navigate('Result')}
+    />
   );
 };
 
