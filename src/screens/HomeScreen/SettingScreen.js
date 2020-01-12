@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import {
   Container,
   Text,
@@ -12,51 +12,119 @@ import {
   Button,
 } from 'native-base';
 
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 import {StyleSheet} from 'react-native';
 
-const SettingScreen = props => {
-  const [periods, setPeriods] = useState(2);
-  const [studyInterval, setStudyInterval] = useState(25);
-  const [restInterval, setRestInterval] = useState(5);
-  const saveOnClick = () => console.log('SAVE is clicked');
-  return (
-    <Container>
-      <Header>
-        <Body>
-          <Title>Settings</Title>
-        </Body>
-      </Header>
-      <Form style={styles.container}>
-        <Item>
-          <Label style={styles.labelStyle}>Number of Periods: </Label>
-          <Input
-            placeholder={periods.toString() + '\tperiods'}
-            onChangeText={input => setPeriods(input)}
-          />
-        </Item>
-        <Item>
-          <Label style={styles.labelStyle}>Study Interval: </Label>
-          <Input
-            placeholder={studyInterval.toString() + '\tminutes'}
-            onChangeText={input => setStudyInterval(input)}
-          />
-        </Item>
-        <Item>
-          <Label style={styles.labelStyle}>Rest Interval: </Label>
-          <Input
-            placeholder={restInterval.toString() + '\tminutes'}
-            onChangeText={input => setRestInterval(input)}
-          />
-        </Item>
-      </Form>
-      <Container style={styles.buttonStyle}>
-        <Button primary large onPress={saveOnClick}>
-          <Text> Save Settings </Text>
-        </Button>
+export default class SettingScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      settings: {},
+    };
+  }
+
+  gotoStart() {
+    this.props.navigation.navigate('Start');
+  }
+
+  async componentDidMount() {
+    try {
+      this.user = auth().currentUser;
+      const userData = await firestore()
+        .collection('users')
+        .doc(this.user.uid)
+        .get();
+      this.setState({settings: userData.data().settings});
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  async saveOnClick() {
+    console.log(this.state);
+    const user = auth().currentUser;
+    try {
+      await firestore()
+        .collection('users')
+        .doc(user.uid)
+        .update({settings: this.state.settings});
+    } catch (e) {
+      console.log(e.message);
+    }
+    this.gotoStart();
+  }
+
+  render() {
+    return (
+      <Container>
+        <Header>
+          <Body>
+            <Title>Settings</Title>
+          </Body>
+        </Header>
+        <Form style={styles.container}>
+          <Item>
+            <Label style={styles.labelStyle}>Number of Periods: </Label>
+            <Input
+              placeholder={(this.state.settings.periods || '') + '\tperiods'}
+              onChangeText={input =>
+                this.setState({
+                  settings: {...this.state.settings, periods: input},
+                })
+              }
+            />
+          </Item>
+          <Item>
+            <Label style={styles.labelStyle}>Study Interval: </Label>
+            <Input
+              placeholder={
+                (this.state.settings.studyInterval || '') + '\tminutes'
+              }
+              onChangeText={input =>
+                this.setState({
+                  settings: {...this.state.settings, studyInterval: input},
+                })
+              }
+            />
+          </Item>
+          <Item>
+            <Label style={styles.labelStyle}>Rest Interval: </Label>
+            <Input
+              placeholder={
+                (this.state.settings.restInterval || '') + '\tminutes'
+              }
+              onChangeText={input =>
+                this.setState({
+                  settings: {...this.state.settings, restInterval: input},
+                })
+              }
+            />
+          </Item>
+          <Item>
+            <Label style={styles.labelStyle}>Max Pause Time: </Label>
+            <Input
+              placeholder={
+                (this.state.settings.maxPauseInterval || '') + '\tminutes'
+              }
+              onChangeText={input =>
+                this.setState({
+                  settings: {...this.state.settings, maxPauseInterval: input},
+                })
+              }
+            />
+          </Item>
+        </Form>
+        <Container style={styles.buttonStyle}>
+          <Button primary large onPress={this.saveOnClick.bind(this)}>
+            <Text> Save Settings </Text>
+          </Button>
+        </Container>
       </Container>
-    </Container>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -72,5 +140,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default SettingScreen;

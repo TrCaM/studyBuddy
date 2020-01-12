@@ -3,8 +3,10 @@ import {View, Image, StyleSheet} from 'react-native';
 
 import {Text, Button, Item, Input, Form, Toast} from 'native-base';
 import GoogleSignIn from '../components/GoogleSignIn';
-
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+// import auth from '@react-native-firebase/auth';
 
 // TODO: disable buttons when email and password is empty/incorrect format
 // TODO: Spinner when it's loading
@@ -30,11 +32,38 @@ const styles = StyleSheet.create({
   },
 });
 
+const DEFAULT_SETTINGS = {
+  periods: 2,
+  studyInterval: 25,
+  restInterval: 5,
+  maxPauseInterval: 10,
+};
+
 const LoginScreen = props => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const goToHome = userData => {
+  const [email, setEmail] = useState('qhienlee@gmail.com');
+  const [password, setPassword] = useState('banana');
+
+  const loadDefaultSettings = async () => {
+    try {
+      this.user = auth().currentUser;
+      const userData = await firestore()
+        .collection('users')
+        .doc(this.user.uid)
+        .get();
+      if (!userData.exists) {
+        await firestore()
+          .collection('users')
+          .doc(this.user.uid)
+          .set({settings: DEFAULT_SETTINGS});
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const goToHome = async userData => {
     console.log(userData);
+    await loadDefaultSettings();
     props.navigation.navigate('Home', {
       message: 'message from screen 1',
     });
