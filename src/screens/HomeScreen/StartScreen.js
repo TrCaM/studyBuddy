@@ -5,7 +5,7 @@ import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 const StartScreen = props => {
-  const playOnPress = () => console.log('PLAY button is press');
+  const playOnPress = () => props.navigation.navigate('Camera');
   return (
     <View style={styles.container}>
       <Animatable.View

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Text } from 'native-base';
+import {Container, Text} from 'native-base';
 import Timer from '../../../src/components/Timer';
 
 const TimerScreen = props => {
@@ -7,10 +7,13 @@ const TimerScreen = props => {
     restInterval: 1,
     studyInterval: 3,
     periods: 2,
-  }
+  };
   return (
     <Container>
-      <Timer settings={settings} />
+      <Timer
+        settings={settings}
+        gotoResult={() => props.navigation.navigate('Result')}
+      />
     </Container>
   );
 };
