@@ -1,8 +1,10 @@
 import React from 'react';
 // import { Container, Text } from 'native-base';
+import { Overlay } from 'react-native-elements';
 import { RNCamera } from 'react-native-camera';
 import { Text, View, StyleSheet, Button, Vibration } from 'react-native';
 import Sound from 'react-native-sound';
+import TimerScreen from './TimerScreen';
 
 import { Toast } from 'native-base';
 import Svg, {
@@ -115,6 +117,9 @@ const CaptureScreen = props => {
 
   return (
     <View style={styles.container}>
+      <Overlay isVisible={lockFrame} overlayBackgroundColor="transparent" fullScreen>
+        <TimerScreen navigation={props.navigation}/>
+      </Overlay>
       <RNCamera
         style={styles.camera}
         type={RNCamera.Constants.Type.front}

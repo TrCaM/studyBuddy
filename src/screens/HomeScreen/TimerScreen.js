@@ -9,12 +9,10 @@ const TimerScreen = props => {
     periods: 2,
   };
   return (
-    <Container>
-      <Timer
-        settings={settings}
-        gotoResult={() => props.navigation.navigate('Result')}
-      />
-    </Container>
+    <Timer
+      settings={settings}
+      gotoResult={() => props.navigation.navigate('Result')}
+    />
   );
 };
 
