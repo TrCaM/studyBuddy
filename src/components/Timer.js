@@ -150,8 +150,6 @@ export default class Timer extends Component {
     const {hours, mins, secs} = this.state;
     return (
       <Container style={styles.container}>
-        <Text>Round Left: {this.state.roundLeft}</Text>
-
         <View style={styles.timer}>
           <Text style={styles.timerText}>
             {this.timeStringGenerateor(hours, mins, secs)}
@@ -169,17 +167,14 @@ export default class Timer extends Component {
             style={this.state.buttonPauseStyle}
             onPress={() => {
               this.buttonPauseStyleChange();
-              if (this.state.buttonPauseTitle == "Pause") {
+              if (this.state.buttonPauseTitle == 'Pause') {
                 this.props.onPause();
-              } else if (this.state.buttonPauseTitle == "Resume") {
+              } else if (this.state.buttonPauseTitle == 'Resume') {
                 this.props.onResume();
               }
             }}>
-            <Text> </Text>
             <Icon name={this.state.buttonPauseIcon} color="white" size={30} />
-            <Text> </Text>
             <Text style={styles.buttonText}>{this.state.buttonPauseTitle}</Text>
-            <Text> </Text>
           </Button>
 
           {/* ///////////////// Stop Button ////////////////// */}
@@ -191,12 +186,14 @@ export default class Timer extends Component {
               clearInterval(this.x);
               this.props.gotoResult();
             }}>
-            <Text> </Text>
             <Icon name="stop" color="white" size={30} />
-            <Text> </Text>
             <Text style={styles.buttonText}>Stop</Text>
-            <Text> </Text>
           </Button>
+        </View>
+        <View style={{paddingBottom: 50}}>
+          <Text style={styles.statusText}>
+            Round left: {this.state.roundLeft}
+          </Text>
         </View>
       </Container>
     );
@@ -207,11 +204,11 @@ export default class Timer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0)'
+    backgroundColor: 'rgba(0,0,0,0)',
   },
 
   timer: {
-    flex: 3,
+    // flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -228,18 +225,21 @@ const styles = StyleSheet.create({
   pauseButtonStyle: {
     display: 'flex',
     justifyContent: 'space-around',
+    width: 130,
     backgroundColor: '#EDAE49',
   },
 
   playButtonStyle: {
     display: 'flex',
     justifyContent: 'space-around',
+    width: 130,
     backgroundColor: '#9CEC5B',
   },
 
   stopButtonStyle: {
     display: 'flex',
     justifyContent: 'space-around',
+    width: 130,
     backgroundColor: '#F67E7D',
   },
 
@@ -250,9 +250,10 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
+    paddingTop: 350,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
   },
 });
